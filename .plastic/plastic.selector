@@ -1,0 +1,4 @@
+repository "Kairo Uprising@kaushalbhingaradia@cloud"
+  path "/"
+    br "/main"
+    co "/main"
