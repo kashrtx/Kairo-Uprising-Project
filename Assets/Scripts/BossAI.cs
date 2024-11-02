@@ -7,41 +7,34 @@ public class BossAI : MonoBehaviour
     public NavMeshAgent agent;
     public GameObject projectilePrefab;
     public Transform firePoint;
-    public float followRange = 20f;  // Increase the follow range for the boss
-    public float attackRange = 15f;  // Increase the attack range for the boss
-    public float fireRate = 0.75f;  // Faster firing rate for the boss
+    public float followRange = 15f;
+    public float attackRange = 10f;
+    public float fireRate = 0.5f;
     private float nextFireTime = 0f;
-    private bool hasSpottedPlayer = false;  // Flag to track player spotting
-    
-    public int health = 200;  // Boss health set to 200
-
-    void Start()
-    {
-        agent.speed = 6f;  // Boss moves faster than the minion
-    }
+    private bool hasSpottedPlayer = false;
+    public int health = 400;
 
     void Update()
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        // Check if player is within follow range
+        
         if (distanceToPlayer <= followRange)
         {
             agent.SetDestination(player.position);
-
-            // Check if player is within attack range and set spotted flag
             if (distanceToPlayer <= attackRange)
             {
                 hasSpottedPlayer = true;
+                // Make the boss look at the player
+                Vector3 directionToPlayer = (player.position - transform.position).normalized;
+                transform.rotation = Quaternion.LookRotation(directionToPlayer);
             }
         }
         else
         {
-            agent.ResetPath();   // Stop following if out of follow range
-            hasSpottedPlayer = false;  // Reset spotted flag if out of follow range
+            agent.ResetPath();
+            hasSpottedPlayer = false;
         }
 
-        // Fire only if spotted and time is ready
         if (hasSpottedPlayer && Time.time >= nextFireTime)
         {
             Shoot();
@@ -51,8 +44,9 @@ public class BossAI : MonoBehaviour
 
     void Shoot()
     {
-        GameObject projectileInstance = Instantiate(projectilePrefab, firePoint.position, firePoint.rotation);
-        projectileInstance.GetComponent<Projectile>().Initialize(firePoint);
+        Vector3 directionToPlayer = (player.position - firePoint.position).normalized;
+        GameObject projectileInstance = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
+        projectileInstance.GetComponent<Projectile>().Initialize(firePoint, directionToPlayer);
     }
 
     public void TakeDamage(int damage)
@@ -60,16 +54,27 @@ public class BossAI : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(gameObject);  // Destroy boss if health drops to 0 or below
+            Die();
         }
+    }
+
+    private void Die()
+    {
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.DefeatBoss();
+            gameManager.CollectArtifact();
+        }
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile"))  // Check if the colliding object is a projectile
+        if (other.CompareTag("Projectile"))
         {
-            TakeDamage(40);  // Subtract 40 health if hit by a projectile
-            Destroy(other.gameObject);  // Optionally destroy the projectile on impact
+            TakeDamage(40);
+            Destroy(other.gameObject);
         }
     }
 }
