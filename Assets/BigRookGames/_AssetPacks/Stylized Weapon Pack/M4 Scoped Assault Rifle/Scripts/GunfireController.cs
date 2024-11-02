@@ -27,8 +27,7 @@ namespace BigRookGames.Weapons
         // --- Projectile ---
         [Tooltip("The projectile gameobject to instantiate each time the weapon is fired.")]
         public GameObject projectilePrefab;
-        [Tooltip("Sometimes a mesh will want to be disabled on fire. For example: when a rocket is fired, we instantiate a new rocket, and disable" +
-            " the visible rocket attached to the rocket launcher")]
+        public float projectileSpeed = 50f;  // Speed of the projectile
         public GameObject projectileToDisableOnFire;
 
         // --- Timing ---
@@ -92,15 +91,20 @@ namespace BigRookGames.Weapons
                 Instantiate(muzzlePrefab, muzzlePosition.transform.position, muzzlePosition.transform.rotation, muzzlePosition.transform);
             }
 
-            // --- Instantiate projectile ---
+            // --- Instantiate and launch projectile ---
             if (projectilePrefab != null)
             {
-                Instantiate(
+                GameObject projectileInstance = Instantiate(
                     projectilePrefab,
                     muzzlePosition.transform.position,
-                    muzzlePosition.transform.rotation,
-                    null // Set parent to null if you don't want the projectile to be a child of the weapon
+                    Quaternion.LookRotation(Camera.main.transform.forward) // Ensures projectile goes straight to the center of the screen
                 );
+
+                Rigidbody rb = projectileInstance.GetComponent<Rigidbody>();
+                if (rb != null)
+                {
+                    rb.velocity = Camera.main.transform.forward * projectileSpeed;  // Sets projectile speed
+                }
             }
 
             // --- Disable any gameobjects, if needed ---
@@ -113,7 +117,6 @@ namespace BigRookGames.Weapons
             // --- Play gunshot sound ---
             if (source != null && GunShotClip != null)
             {
-                // Change pitch to give variation to repeated shots
                 source.pitch = Random.Range(audioPitch.x, audioPitch.y);
                 source.PlayOneShot(GunShotClip);
             }

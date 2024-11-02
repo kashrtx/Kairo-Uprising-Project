@@ -10,6 +10,9 @@ TagManager:
   - Slide
   - Reach
   - Pole
+  - Artifact
+  - Projectile
+  - Kairo
   layers:
   - Default
   - TransparentFX
@@ -17,13 +20,13 @@ TagManager:
   - PostProcessing
   - Water
   - UI
-  - 
-  - 
+  - Ground
+  - Player
   - Ledge
   - Vault
   - Wall
-  - 
-  - 
+  - Artifact
+  - Kairo
   - 
   - 
   - 
