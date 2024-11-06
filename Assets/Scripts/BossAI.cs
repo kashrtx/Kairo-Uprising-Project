@@ -13,6 +13,14 @@ public class BossAI : MonoBehaviour
     private float nextFireTime = 0f;
     private bool hasSpottedPlayer = false;
     public int health = 400;
+    public AudioClip Boss_Death;
+    public AudioSource Boss;
+
+    private void Start()
+    {
+       
+        Boss = GetComponent<AudioSource>();
+    }
 
     void Update()
     {
@@ -60,6 +68,15 @@ public class BossAI : MonoBehaviour
 
     private void Die()
     {
+        GameObject audioPlayer = new GameObject("Boss_Death_Audio");
+        AudioSource audioSource = audioPlayer.AddComponent<AudioSource>();
+
+        audioSource.clip = Boss_Death;
+        audioSource.playOnAwake = false;
+
+        audioSource.Play();
+
+
         GameManager gameManager = FindObjectOfType<GameManager>();
         if (gameManager != null)
         {
