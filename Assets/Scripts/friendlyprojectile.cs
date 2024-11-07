@@ -8,6 +8,15 @@ public class friendlyprojectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
+        if (!other.CompareTag("Weapon"))
+        {
+            Debug.Log("destroyed bullet");
+            Destroy(this.gameObject);
+            return;
+        }
+        
+
         // Check if the object has a health component or tag
         if (other.CompareTag("Kairo"))
         {
@@ -18,15 +27,18 @@ public class friendlyprojectile : MonoBehaviour
             if (minion != null)
             {
                 minion.TakeDamage(damage);
+                Debug.Log("hit minion");
             }
             else if (boss != null)
             {
                 boss.TakeDamage(damage);
+                Debug.Log("hit boss");
             }
 
             // return if it hits
              transform.position = firePoint.position;
              transform.rotation = firePoint.rotation;
         }
+        
     }
 }

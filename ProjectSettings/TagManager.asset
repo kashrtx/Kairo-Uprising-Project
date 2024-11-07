@@ -13,6 +13,7 @@ TagManager:
   - Artifact
   - Projectile
   - Kairo
+  - Weapon
   layers:
   - Default
   - TransparentFX
