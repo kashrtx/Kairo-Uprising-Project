@@ -16,13 +16,13 @@ public class BossAI : MonoBehaviour
     public AudioClip Boss_Death;
     public AudioSource Boss;
     public AudioSource Grunt;
-    public AudioClip Boss_Grunt;
+    
 
     private void Start()
     {
        
         Boss = GetComponent<AudioSource>();
-        Grunt = GetComponent<AudioSource>();
+        Grunt = transform.GetChild(3).GetComponent<AudioSource>();
     }
 
     void Update()
@@ -62,9 +62,9 @@ public class BossAI : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if(Grunt != null && Boss_Grunt != null)
+        if(Grunt != null && !Grunt.isPlaying)
         {
-            Grunt.PlayOneShot(Boss_Grunt);
+            Grunt.Play();
         }
         health -= damage;
         if (health <= 0)
