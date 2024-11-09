@@ -12,7 +12,7 @@ public class MinionAI : MonoBehaviour
     public float fireRate = 0.2f;
     private float nextFireTime = 0f;
     private bool hasSpottedPlayer = false;
-    public int health = 100;
+    public int health = 200;
 
     void Update()
     {

@@ -1,18 +1,19 @@
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     // UI elements
-    public Text artifactCountText;
-    public Text bossCountText;
+    public TMP_Text artifactCountText;
+    public TMP_Text bossCountText;
+    public TMP_Text objectiveText;
     
     // Wall that triggers win condition
     public GameObject victoryWall;
     
     // Scene name to load on victory
-    public string winSceneName = "WinScene";
+    [SerializeField] private string winSceneName = "You Win";
     
     // Tracking variables
     public int artifactsCollected = 0;
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         UpdateUI();
+        SetObjectiveText();
     }
 
     // Call this when player collects an artifact
@@ -54,11 +56,21 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetObjectiveText()
+    {
+        if (objectiveText != null)
+        {
+            objectiveText.text = "Objective: Kill 5 Kairo Bosses. Go to the gate at the end of the village to escape!";
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
+         Debug.LogWarning("touching block!");
         // Check if the player touched the victory wall
-        if (other.CompareTag("Player") && other.gameObject.transform.position.y > 0)
+        if (other.CompareTag("Player"))
         {
+             Debug.LogWarning("player touching block!");
             CheckVictoryCondition();
         }
     }
@@ -67,8 +79,17 @@ public class GameManager : MonoBehaviour
     {
         if (artifactsCollected >= REQUIRED_ARTIFACTS && bossesDefeated >= REQUIRED_BOSSES)
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             // Load win scene
-            SceneManager.LoadScene(winSceneName);
+            if (!string.IsNullOrEmpty(winSceneName))
+            {
+                SceneManager.LoadScene(winSceneName);
+            }
+            else
+            {
+                Debug.LogWarning("Win scene name is not set.");
+            }
         }
     }
 

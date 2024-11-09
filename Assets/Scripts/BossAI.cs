@@ -12,7 +12,7 @@ public class BossAI : MonoBehaviour
     public float fireRate = 0.5f;
     private float nextFireTime = 0f;
     private bool hasSpottedPlayer = false;
-    public int health = 400;
+    public int health = 1000;
     public AudioClip Boss_Death;
     public AudioSource Boss;
     public AudioSource Grunt;

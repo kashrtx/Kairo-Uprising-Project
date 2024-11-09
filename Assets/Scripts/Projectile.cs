@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
         this.direction = targetDirection.normalized;
         
         // Add slight random spread for less perfect accuracy
-        float spread = 0.1f; // Adjust this value to control spread amount
+        float spread = 0.03f; // Adjust this value to control spread amount
         direction += new Vector3(
             Random.Range(-spread, spread),
             Random.Range(-spread, spread),
