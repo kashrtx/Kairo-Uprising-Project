@@ -9,6 +9,8 @@ public class NPCInteraction : MonoBehaviour
     public Text dialogueText;         
     private bool playerInRange = false;
     private bool interactionComplete = false;
+    private GameManager gameManager; 
+    
 
     void Start()
     {
@@ -16,6 +18,19 @@ public class NPCInteraction : MonoBehaviour
         if (gun != null)
         {
             gun.SetActive(false);
+        }
+
+        // Find the GameManager in the scene
+        GameObject gameManagerObject = GameObject.Find("GameManager");
+        if (gameManagerObject != null)
+        {
+            gameManager = gameManagerObject.GetComponent<GameManager>();
+        }
+
+        // Update the objective message using GameManager
+        if (gameManager != null)
+        {
+            gameManager.UpdateObjectiveMessage("Talk to the wise man!");
         }
     }
 
@@ -77,6 +92,16 @@ public class NPCInteraction : MonoBehaviour
         {
             gun.SetActive(true);  // Makes the gun visible after interaction
             Debug.Log("The player has received the gun!");
+        }
+
+        // Update the objective message using GameManager
+        if (gameManager != null)
+        {
+            gameManager.UpdateObjectiveMessage("Kill 5 Kairo bosses that are around the town!");
+        }
+        else
+        {
+            Debug.LogWarning("GameManager not found. Unable to update objective message.");
         }
     }
 

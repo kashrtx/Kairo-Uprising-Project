@@ -11,7 +11,8 @@ public class WinScene : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             Debug.Log("Player touched the revealed object! Changing scene...");
-
+            Cursor.visible = true; // make mouse visible again and remove lock
+            Cursor.lockState = CursorLockMode.None;
             // Change the scene
             SceneManager.LoadScene(win);
         }

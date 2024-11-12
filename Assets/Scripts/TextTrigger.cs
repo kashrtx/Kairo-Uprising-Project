@@ -20,7 +20,6 @@ public class texttrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             TextObject.SetActive(false);
-            Destroy(TextObject);
         }
     }
 }

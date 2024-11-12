@@ -20,8 +20,9 @@ public class GameManager : MonoBehaviour
     public int bossesDefeated = 0;
     
     // Constants
-    private const int REQUIRED_ARTIFACTS = 1;
-    private const int REQUIRED_BOSSES = 1;
+    private const int REQUIRED_ARTIFACTS = 5;
+    private const int REQUIRED_BOSSES = 5;
+    public string message = "Kill 5 Kairo Bosses. Go to the gate at the end of the village to escape!";
 
     private void Start()
     {
@@ -39,6 +40,12 @@ public class GameManager : MonoBehaviour
     {
         artifactsCollected++;
         UpdateUI();
+
+         // Check if all artifacts have been collected
+        if (artifactsCollected >= REQUIRED_ARTIFACTS)
+        {
+            UpdateObjectiveMessage("All artifacts collected! Go to the gate at the end of the village to escape!");
+        }
     }
 
     // Call this when a boss is defeated
@@ -67,11 +74,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void SetObjectiveText()
+    public void UpdateObjectiveMessage(string newMessage)
+    {
+        message = newMessage;
+        SetObjectiveText();
+    }
+
+    public void SetObjectiveText()
     {
         if (objectiveText != null)
         {
-            objectiveText.text = "Objective: Kill 5 Kairo Bosses. Go to the gate at the end of the village to escape!";
+            objectiveText.text = $"Objective: {message}";
         }
     }
 
