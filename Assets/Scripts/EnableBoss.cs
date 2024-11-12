@@ -11,8 +11,8 @@ public class EnableBossOnDestroy : MonoBehaviour
     public GameObject minion4;
 
     public PlayEnemyMusic script;
-
-    private bool BossIsSpawned = false;
+    
+    private bool BossIsSpawned = false; //Boss is not spawned yet
 
     void Update()
     {
@@ -27,11 +27,12 @@ public class EnableBossOnDestroy : MonoBehaviour
             }
 
             //Destroy(this);  // Destroy this script so it doesn't keep checking
-            BossIsSpawned=true;
+            BossIsSpawned=true; //Boss is spawned.
         }
-
+        // Check if boss is destroyed
         if(bossGameObject == null)
         {
+            //Stop boss music
             script.StopMusic();
 
             

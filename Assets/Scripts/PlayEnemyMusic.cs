@@ -12,11 +12,13 @@ public class PlayEnemyMusic : MonoBehaviour
     public bool alreadyPlayed = false;
     void Start()
     {
+        // Get audio component
         Audio = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter()
     {
+        // Play audio once
         if (!alreadyPlayed)
         {
             Audio.Play();
@@ -26,6 +28,7 @@ public class PlayEnemyMusic : MonoBehaviour
 
     public void PlayBossMusic()
     {
+        // Stop enemy music and play boss music
         if (Audio.isPlaying)
         {
             Audio.Stop();
@@ -35,7 +38,7 @@ public class PlayEnemyMusic : MonoBehaviour
         Audio.Play();
     }
 
-    public void StopMusic()
+    public void StopMusic() // Stop playing audio
     {
         if(Audio.isPlaying)
         {
