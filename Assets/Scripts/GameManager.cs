@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text objectiveText;
     
     // Wall that triggers win condition
-    public GameObject victoryWall;
+    public GameObject Ending_Barrier;
     
     // Scene name to load on victory
     [SerializeField] private string winSceneName = "You Win";
@@ -20,13 +20,18 @@ public class GameManager : MonoBehaviour
     public int bossesDefeated = 0;
     
     // Constants
-    private const int REQUIRED_ARTIFACTS = 5;
-    private const int REQUIRED_BOSSES = 5;
+    private const int REQUIRED_ARTIFACTS = 1;
+    private const int REQUIRED_BOSSES = 1;
 
     private void Start()
     {
         UpdateUI();
         SetObjectiveText();
+
+        if (Ending_Barrier != null)
+        {
+            Ending_Barrier.SetActive(false);
+        }
     }
 
     // Call this when player collects an artifact
@@ -41,6 +46,12 @@ public class GameManager : MonoBehaviour
     {
         bossesDefeated++;
         UpdateUI();
+        //CheckVictoryCondition();
+
+        if (bossesDefeated >= REQUIRED_BOSSES && Ending_Barrier != null)
+        {
+            Ending_Barrier.SetActive(true);
+        }
     }
 
     private void UpdateUI()
@@ -77,7 +88,8 @@ public class GameManager : MonoBehaviour
 
     private void CheckVictoryCondition()
     {
-        if (artifactsCollected >= REQUIRED_ARTIFACTS && bossesDefeated >= REQUIRED_BOSSES)
+        //if (artifactsCollected >= REQUIRED_ARTIFACTS && bossesDefeated >= REQUIRED_BOSSES)
+        if(bossesDefeated == 1)
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
