@@ -53,7 +53,7 @@ public class NPCInteraction : MonoBehaviour
     {
         if (dialogueText != null)
         {
-            dialogueText.text = "Hey YOU! I need your help! Here, QUICK! Take this gun! Defeat them please! I HAVE A FAMILY!";
+            dialogueText.text = "Hey YOU! I need your help! Here, QUICK! Take this gun! Defeat them please! I HAVE A FAMILY! KILL ONES ON THE STREET TOO!";
             dialogueText.gameObject.SetActive(true);
 
             // Hide the dialogue text after a delay
