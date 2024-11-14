@@ -9,7 +9,8 @@ there is no one left but you to stop them. You are armed with a holy rifle with 
 creatures who have the artifacts. You are to explore around the map to collect five artifacts which will be 
 used to save the town and win the game. Unlike other FPS games like Extraction or Rainbow Six, Kairo Uprising 
 challenges players with supernatural enemies while avoiding conventional cover mechanics, offering a fresh, 
-intense combat experience.
+intense combat experience. What are you waiting for? Download and play the game through the Github release tab!
+:)
 
 # Controls
 - WASD for movement, M1 and R for shooting and reloading gun, E for gun with NPC interaction, ESC for pause menu.
