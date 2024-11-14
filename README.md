@@ -1,3 +1,7 @@
+
+<p align="center"><img src=https://github.com/user-attachments/assets/f5c3dfba-71bb-40bb-9348-0483f6c9362b></p>
+
+
 # About
 Kairo Uprising is an objective based FPS game with supernatural elements where you are placed in a ruined town
 infested with Kairos who fire energy projectiles at anyone who gets close. With the Kairos attacking the area, 
@@ -7,6 +11,8 @@ used to save the town and win the game. Unlike other FPS games like Extraction o
 challenges players with supernatural enemies while avoiding conventional cover mechanics, offering a fresh, 
 intense combat experience.
 
+# Controls
+- WASD for movement, M1 and R for shooting and reloading gun, E for gun with NPC interaction, ESC for pause menu.
 
 
 # Credits
